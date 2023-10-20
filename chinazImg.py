@@ -28,7 +28,7 @@ class Procuder(object):
     #  定义一个爬取并解析页面的函数，得到要下载视频的url和视频名字
     def get_data(self, url):
         url_get = requests.get(url, headers = header)
-        url_soup = BeautifulSoup(url_get,'html.parser')
+        url_soup = BeautifulSoup(url_get.text,'html.parser')
         console.log(url_soup)
         all_a = url_soup.find('div',id="zuixin").find_all('a',attrs={"class":"title"})
 
