@@ -29,8 +29,10 @@ class Procuder(object):
     def get_data(self, url):
         url_get = requests.get(url, headers = header)
         url_soup = BeautifulSoup(url_get.text,'html.parser')
-        content = url_soup.find('div', class_='com-img-txt-list').find_all('div', class_='masonry-brick')  # 替换为你要提取的正文内容的标签和属性
-        print(content)
+        main_div = url_soup.find('div', class_='com-img-txt-list')
+        son_div = main_div.find_all('div', class_='masonry-brick')
+        print(main_div)
+        print(son_div)
 
     def InsertDB(self,data):
         # 连接 mysql，获取连接的对象
