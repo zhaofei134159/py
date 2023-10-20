@@ -30,7 +30,7 @@ class Procuder(object):
         url_get = requests.get(url, headers = header)
         url_soup = BeautifulSoup(url_get.text,'html.parser')
         main_div = url_soup.find('div', class_='com-img-txt-list')
-        son_div = main_div.find_all('div', class_='masonry-brick')
+        son_div = main_div.find_all('div',attrs={"class": "masonry-brick"})
         print(main_div)
         print(son_div)
 
