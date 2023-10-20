@@ -1,16 +1,22 @@
 # -*- coding:utf-8 -*-
-from mysql.MysqlHelp import MysqlHelp
+# from mysql.MysqlHelp import MysqlHelp
 import re
 import requests
 import time
 from lxml import etree
 from selenium import webdriver
+from urllib import error
+from bs4 import BeautifulSoup
 import os
 
 BASE_URL = "https://sc.chinaz.com"  #  网站地址
 BASE_PATH = "/tupian/dongman.html"  #  网站地址
-HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'
+# 模拟浏览器 请求数据 伪装成浏览器向网页提取服务
+header = {
+    'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+    'Connection': 'keep-alive',
+    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0',
+    'Upgrade-Insecure-Requests': '1'
 }
 MAXIMAL_RETRY = 3 # 默认重试次数
 
@@ -21,17 +27,10 @@ class Procuder(object):
 
     #  定义一个爬取并解析页面的函数，得到要下载视频的url和视频名字
     def get_data(self, url):
-        try:
-            #  请求首页，得到BASE_URL中槽的数字
-            response = requests.get(url, headers=HEADERS)
-            response.raise_for_status()
-            response.encoding = response.apparent_encoding
-            text = response.text
-            html = etree.HTML(text)
-        except:
-            print('爬取首页时出现错误!')
-
-        print(html)
+        url_get = requests.get(url, headers = header)
+        url_soup = BeautifulSoup(url_get,'html.parser')
+        console.log(url_soup)
+        all_a = url_soup.find('div',id="zuixin").find_all('a',attrs={"class":"title"})
 
 
     def InsertDB(self,data):
