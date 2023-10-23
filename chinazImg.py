@@ -37,6 +37,7 @@ class Procuder(object):
 
         # 获取分页
         page_a = url_soup.find('div', class_='new-two-page-box').find_all('a')
+        print(page_a)
 
         
 
