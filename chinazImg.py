@@ -42,14 +42,12 @@ class Procuder(object):
 
         # 遍历 link
         for alink in alinkLs:
-            print(alink)
-            print(alink.get('href'))
-            print(alink.text)
-            maxNumLink['num'] = '';
-            maxNumLink['link'] = '';
+            if alink.text.isnumeric():
+                maxNumLink['num'] = alink.text;
+                maxNumLink['link'] = alink.get('href');
 
         
-
+        print(maxNumLink)
 
         # main_div = url_soup.find('div', class_='com-img-txt-list')
         # son_div = main_div.find_all('div', class_="item")
