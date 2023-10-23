@@ -44,7 +44,7 @@ class Procuder(object):
         for alink in alinkLs:
             print(alink)
             print(alink.get('href'))
-            print(alink.find('b').text)
+            print(alink.find('b').text())
             maxNumLink['num'] = '';
             maxNumLink['link'] = '';
 
