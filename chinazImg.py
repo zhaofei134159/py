@@ -36,7 +36,7 @@ class Procuder(object):
         url_soup = BeautifulSoup(html_content, 'html.parser')
 
         # 获取分页
-        page_a = url_soup.find('div', class_='new-two-page-box').find_all('a')
+        page_a = url_soup.find('div', class_='new-two-page-box').find_all('b')
         print(page_a)
 
         
