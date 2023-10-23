@@ -38,9 +38,15 @@ class Procuder(object):
         # 获取分页
         alinkLs = url_soup.find('div', class_='new-two-page-box').find_all('a')
 
+        maxNumLink = {}
+
         # 遍历 link
         for alink in alinkLs:
             print(alink)
+            print(alink.get('href'))
+            print(alink.find('b'))
+            maxNumLink['num'] = '';
+            maxNumLink['link'] = '';
 
         
 
