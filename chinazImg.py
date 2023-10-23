@@ -27,8 +27,13 @@ class Procuder(object):
 
     #  定义一个爬取并解析页面的函数，得到要下载视频的url和视频名字
     def get_data(self, url):
-        url_get = requests.get(url, headers = header)
-        url_soup = BeautifulSoup(url_get.text,'html.parser')
+        response = requests.get(url, headers = header)
+        # 修改字符集（可选）
+        new_charset = 'utf-8'  # 替换为你希望使用的字符集
+        response.encoding = new_charset
+        # 解析网页内容
+        html_content = response.text
+        url_soup = BeautifulSoup(html_content, 'html.parser')
         main_div = url_soup.find('div', class_='com-img-txt-list')
         son_div = main_div.find_all('div', class_="item")
         print(main_div)
