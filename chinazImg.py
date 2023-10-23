@@ -34,10 +34,22 @@ class Procuder(object):
         # 解析网页内容
         html_content = response.text
         url_soup = BeautifulSoup(html_content, 'html.parser')
-        main_div = url_soup.find('div', class_='com-img-txt-list')
-        son_div = main_div.find_all('div', class_="item")
-        print(main_div)
-        print(son_div)
+
+        # 获取分页
+        page_a = url_soup.find('div', class_='new-two-page-box').find_all('a')
+
+        
+
+
+        # main_div = url_soup.find('div', class_='com-img-txt-list')
+        # son_div = main_div.find_all('div', class_="item")
+
+        # # 图片列表循环
+        # for fruit in fruits:
+        #     print(fruit)
+
+        # print(main_div)
+        # print(son_div)
 
     def InsertDB(self,data):
         # 连接 mysql，获取连接的对象
