@@ -54,7 +54,7 @@ class Procuder(object):
     def get_page_img(self):
 
         # 图片列表循环
-        for i in range(link_ls['num']):
+        for i in range(self.link_ls['num']):
             print(i)
 
         # main_div = soup.find('div', class_='com-img-txt-list')
