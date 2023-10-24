@@ -27,6 +27,7 @@ class Procuder(object):
     soup = ''
     link_ls = {}
 
+    # 定义一个爬取并解析页面的函数
     def get_soup(self, url):
         response = requests.get(url, headers = header)
         # 修改字符集（可选）
@@ -37,7 +38,7 @@ class Procuder(object):
         self.soup = BeautifulSoup(html_content, 'html.parser')
 
 
-    #  定义一个爬取并解析页面的函数，得到要下载视频的url和视频名字
+    # 获取页面分页信息
     def get_page(self):
         # 获取分页
         alinkLs = self.soup.find('div', class_='new-two-page-box').find_all('a')
@@ -48,14 +49,16 @@ class Procuder(object):
                 self.link_ls['num'] = alink.text;
                 self.link_ls['link'] = alink.get('href');
 
-        print(self.link_ls)
 
-        # main_div = url_soup.find('div', class_='com-img-txt-list')
+    # 获取每个分页内图片url和文本
+    def get_page_img(self):
+
+        # 图片列表循环
+        for i in range(link_ls['num']):
+            print(i)
+
+        # main_div = soup.find('div', class_='com-img-txt-list')
         # son_div = main_div.find_all('div', class_="item")
-
-        # # 图片列表循环
-        # for fruit in fruits:
-        #     print(fruit)
 
         # print(son_div)
 
@@ -85,6 +88,8 @@ class Procuder(object):
         self.get_soup(url)
         # 获取页面分页
         self.get_page()
+        # 获取分页图片
+        self.get_page_img()
 
 
 def main():
