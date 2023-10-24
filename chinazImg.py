@@ -60,7 +60,7 @@ class Procuder(object):
         # 图片列表循环
         for i in range(num):
             page = i + 1
-            page_num_link = page_link.replace("num", page, 1)
+            page_num_link = page_link.replace("num", str(page), 1)
             print(page_num_link)
 
         # main_div = soup.find('div', class_='com-img-txt-list')
