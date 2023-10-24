@@ -24,30 +24,33 @@ MAXIMAL_RETRY = 3 # 默认重试次数
 #  定义一个类，用于专门爬取页面，得到想要的内容
 class Procuder(object):
     src_and_name = []  #  定义一个列表来放视频的标题和播放地址
+    soup = ''
+    link_ls = {}
 
-    #  定义一个爬取并解析页面的函数，得到要下载视频的url和视频名字
-    def get_data(self, url):
+    def get_soup(self, url):
         response = requests.get(url, headers = header)
         # 修改字符集（可选）
         new_charset = 'utf-8'  # 替换为你希望使用的字符集
         response.encoding = new_charset
         # 解析网页内容
         html_content = response.text
-        url_soup = BeautifulSoup(html_content, 'html.parser')
+        self.soup = BeautifulSoup(html_content, 'html.parser')
 
+
+    #  定义一个爬取并解析页面的函数，得到要下载视频的url和视频名字
+    def get_page(self):
         # 获取分页
-        alinkLs = url_soup.find('div', class_='new-two-page-box').find_all('a')
+        alinkLs = self.soup.find('div', class_='new-two-page-box').find_all('a')
 
         maxNumLink = {}
 
         # 遍历 link
         for alink in alinkLs:
             if alink.text.isnumeric():
-                maxNumLink['num'] = alink.text;
-                maxNumLink['link'] = alink.get('href');
+                self.maxNumLink['num'] = alink.text;
+                self.maxNumLink['link'] = alink.get('href');
 
-        
-        print(maxNumLink)
+        print(self.maxNumLink)
 
         # main_div = url_soup.find('div', class_='com-img-txt-list')
         # son_div = main_div.find_all('div', class_="item")
@@ -56,7 +59,6 @@ class Procuder(object):
         # for fruit in fruits:
         #     print(fruit)
 
-        # print(main_div)
         # print(son_div)
 
     def InsertDB(self,data):
@@ -81,7 +83,10 @@ class Procuder(object):
 
     def run(self):
         url = BASE_URL + BASE_PATH
-        self.get_data(url)
+        # 获取页面内容
+        self.get_soup(url)
+        # 获取页面分页
+        self.get_page()
 
 
 def main():
