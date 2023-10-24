@@ -25,7 +25,7 @@ MAXIMAL_RETRY = 3 # 默认重试次数
 class Procuder(object):
     src_and_name = []  #  定义一个列表来放视频的标题和播放地址
     soup = ''
-    page_num_link = {}
+    page_num_link = []
 
     # 定义一个爬取并解析页面的函数
     def get_soup(self, url):
