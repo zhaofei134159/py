@@ -52,11 +52,11 @@ class Procuder(object):
 
     # 获取每个分页内图片url和文本
     def get_page_img(self):
-
         print(self.link_ls)
-        print(self.link_ls['num'])
+        
+        num = int(self.link_ls['num'])
         # 图片列表循环
-        for i in range(self.link_ls['num']):
+        for i in range(num):
             print(i)
 
         # main_div = soup.find('div', class_='com-img-txt-list')
