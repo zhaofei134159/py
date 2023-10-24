@@ -62,7 +62,7 @@ class Procuder(object):
             if i != 0:
                 page = '_' + str(i + 1)
 
-            self.page_num_link[] = page_link.replace("_num", page, 1)
+            self.page_num_link.append(page_link.replace("_num", page, 1))
 
 
     # 获取每个分页内图片url和文本
@@ -70,11 +70,13 @@ class Procuder(object):
         for link in self.page_num_link:
             print(link)
 
+
     def InsertDB(self,data):
         # 连接 mysql，获取连接的对象
         sql = "INSERT into zf_video(`name`,`path`,`episodes`) values(%s,%s,%s)"
         db = MysqlHelp()
         db.insert_delete_update(sql,data)
+
 
     # 重试
     def retry_url(self,url,times=0):
@@ -89,6 +91,7 @@ class Procuder(object):
                 times += 1
                 print('重试第'+times+'次')
                 return run_with_retry(url,times)
+
 
     def run(self):
         url = BASE_URL + BASE_PATH
