@@ -60,7 +60,7 @@ class Procuder(object):
         # 图片列表循环
         for i in range(num):
             page = ''
-            if page != 1:
+            if i != 0:
                 page = '_' + str(i + 1)
 
             page_num_link = page_link.replace("_num", page, 1)
