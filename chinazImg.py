@@ -42,15 +42,13 @@ class Procuder(object):
         # 获取分页
         alinkLs = self.soup.find('div', class_='new-two-page-box').find_all('a')
 
-        maxNumLink = {}
-
         # 遍历 link
         for alink in alinkLs:
             if alink.text.isnumeric():
-                self.maxNumLink['num'] = alink.text;
-                self.maxNumLink['link'] = alink.get('href');
+                self.link_ls['num'] = alink.text;
+                self.link_ls['link'] = alink.get('href');
 
-        print(self.maxNumLink)
+        print(self.link_ls)
 
         # main_div = url_soup.find('div', class_='com-img-txt-list')
         # son_div = main_div.find_all('div', class_="item")
