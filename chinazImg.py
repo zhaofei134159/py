@@ -56,6 +56,7 @@ class Procuder(object):
         link = self.link_ls['link']
         link_arr = link.split("_")
         page_link = link_arr['0'] + '_num.html'
+        print(link_arr)
 
         # 图片列表循环
         for i in range(num):
