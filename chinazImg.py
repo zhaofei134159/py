@@ -25,7 +25,7 @@ MAXIMAL_RETRY = 3 # 默认重试次数
 class Procuder(object):
     src_and_name = []  #  定义一个列表来放视频的标题和播放地址
     soup = ''
-    link_ls = {}
+    page_num_link = {}
 
     # 定义一个爬取并解析页面的函数
     def get_soup(self, url):
@@ -42,18 +42,17 @@ class Procuder(object):
     def get_page(self):
         # 获取分页
         alinkLs = self.soup.find('div', class_='new-two-page-box').find_all('a')
+        link_ls = {}
 
         # 遍历 link
         for alink in alinkLs:
             if alink.text.isnumeric():
-                self.link_ls['num'] = alink.text;
-                self.link_ls['link'] = alink.get('href');
+                link_ls['num'] = alink.text
+                link_ls['link'] = alink.get('href')
 
-
-    # 获取每个分页内图片url和文本
-    def get_page_img(self):
-        num = int(self.link_ls['num'])
-        link = self.link_ls['link']
+        # 
+        num = int(link_ls['num'])
+        link = link_ls['link']
         link_arr = link.split("_")
         page_link = link_arr[0] + '_num.html'
 
@@ -63,13 +62,13 @@ class Procuder(object):
             if i != 0:
                 page = '_' + str(i + 1)
 
-            page_num_link = page_link.replace("_num", page, 1)
-            print(page_num_link)
+            self.page_num_link[] = page_link.replace("_num", page, 1)
 
-        # main_div = soup.find('div', class_='com-img-txt-list')
-        # son_div = main_div.find_all('div', class_="item")
 
-        # print(son_div)
+    # 获取每个分页内图片url和文本
+    def get_page_img(self):
+        for link in self.page_num_link:
+            print(link)
 
     def InsertDB(self,data):
         # 连接 mysql，获取连接的对象
