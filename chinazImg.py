@@ -74,7 +74,14 @@ class Procuder(object):
 
     def get_image_url(self, soup):
         imgls = soup.find('div', class_='tupian-list').find_all('img')
-        print(imgls)
+        img_link = []
+        num = 0
+        for img in imgls:
+            img_link[num]['num'] = img.get('alt')
+            img_link[num]['link'] = img.get('data-original')
+            num += 1
+
+        print(img_link)
         exit();
 
     def InsertDB(self,data):
