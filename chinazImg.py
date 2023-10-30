@@ -72,7 +72,7 @@ class Procuder(object):
             self.get_image_url(page_img_soup)
 
 
-    def get_image_url(self, img_soup):
+    def get_image_url(self, soup):
         imgls = soup.find('div', class_='tupian-list').find_all('img')
         print(imgls)
         exit();
