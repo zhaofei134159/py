@@ -76,8 +76,10 @@ class Procuder(object):
         imgls = soup.find('div', class_='tupian-list').find_all('img')
         img_link = []
         for index in range(len(imgls)):
-            img_link[index]['alt'] = imgls[index].get('alt')
-            img_link[index]['data-original'] = imgls[index].get('data-original')
+            print(index)
+            print(imgls[index])
+            # img_link[index]['alt'] = imgls[index].get('alt')
+            # img_link[index]['data-original'] = imgls[index].get('data-original')
 
         print(img_link)
         exit()
