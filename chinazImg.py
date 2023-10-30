@@ -77,12 +77,15 @@ class Procuder(object):
         img_link = []
         num = 0
         for img in imgls:
-            img_link[num]['num'] = img.get('alt')
-            img_link[num]['link'] = img.get('data-original')
-            num += 1
+            print(img)
+            print(img..get('alt'))
+            exit()
+            # img_link[num]['alt'] = img.get('alt')
+            # img_link[num]['data-original'] = img.get('data-original')
+            # num += 1
 
         print(img_link)
-        exit();
+        exit()
 
     def InsertDB(self,data):
         # 连接 mysql，获取连接的对象
