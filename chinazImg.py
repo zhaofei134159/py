@@ -78,7 +78,7 @@ class Procuder(object):
         num = 0
         for img in imgls:
             print(img)
-            print(img..get('alt'))
+            print(img.get('alt'))
             exit()
             # img_link[num]['alt'] = img.get('alt')
             # img_link[num]['data-original'] = img.get('data-original')
