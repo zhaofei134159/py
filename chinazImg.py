@@ -9,8 +9,8 @@ from urllib import error
 from bs4 import BeautifulSoup
 import os
 
-BASE_URL = "https://sc.chinaz.com"  #  网站地址
-BASE_PATH = "/tupian/dongman.html"  #  网站地址
+BASE_URL = "https://sc.chinaz.com/tupian/"  #  网站地址
+BASE_PATH = "dongman.html"  #  网站地址
 # 模拟浏览器 请求数据 伪装成浏览器向网页提取服务
 header = {
     'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
@@ -23,9 +23,8 @@ MAXIMAL_RETRY = 3 # 默认重试次数
 
 #  定义一个类，用于专门爬取页面，得到想要的内容
 class Procuder(object):
-    src_and_name = []  #  定义一个列表来放视频的标题和播放地址
-    soup = ''
     page_num_link = []
+    img_link = []
 
     # 定义一个爬取并解析页面的函数
     def get_soup(self, url):
@@ -35,13 +34,14 @@ class Procuder(object):
         response.encoding = new_charset
         # 解析网页内容
         html_content = response.text
-        self.soup = BeautifulSoup(html_content, 'html.parser')
+        soup = BeautifulSoup(html_content, 'html.parser')
 
+        return soup
 
     # 获取页面分页信息
-    def get_page(self):
+    def get_page(self, soup):
         # 获取分页
-        alinkLs = self.soup.find('div', class_='new-two-page-box').find_all('a')
+        alinkLs = soup.find('div', class_='new-two-page-box').find_all('a')
         link_ls = {}
 
         # 遍历 link
@@ -64,12 +64,18 @@ class Procuder(object):
 
             self.page_num_link.append(page_link.replace("_num", page, 1))
 
-
     # 获取每个分页内图片url和文本
     def get_page_img(self):
         for link in self.page_num_link:
-            print(link)
+            page_url = BASE_URL + link
+            page_img_soup = self.get_soup(page_url)
+            self.get_image_url(page_img_soup)
 
+
+    def get_image_url(self, img_soup):
+        imgls = soup.find('div', class_='tupian-list').find_all('img')
+        print(imgls)
+        exit();
 
     def InsertDB(self,data):
         # 连接 mysql，获取连接的对象
@@ -96,9 +102,9 @@ class Procuder(object):
     def run(self):
         url = BASE_URL + BASE_PATH
         # 获取页面内容
-        self.get_soup(url)
+        soup = self.get_soup(url)
         # 获取页面分页
-        self.get_page()
+        self.get_page(soup)
         # 获取分页图片
         self.get_page_img()
 
