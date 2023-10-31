@@ -93,7 +93,8 @@ class Procuder(object):
 
             db = MysqlHelp()
             result = db.select_fetchall(sql,gallery_data)
-            print(result['0'])
+            print(list(result))
+            print(list(result)[0])
             exit()
 
             # 
