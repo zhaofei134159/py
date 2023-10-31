@@ -86,16 +86,16 @@ class Procuder(object):
             type_msg = 'chinaz'
             unique_id = href.replace('.htm', '', 1)
 
+
+            # 已存在 则跳过
             gallery_data = []
             gallery_data.append(type_msg)
             gallery_data.append(unique_id)
             sql = "SELECT * FROM gallery WHERE `type_msg`=%s and unique_id=%s order by id"
-
             db = MysqlHelp()
             result = db.select_fetchall(sql,gallery_data)
 
-            print(len(list(result)[0]))
-            if not len(list(result)[0]):
+            if len(list(result)[0]) != 0:
                 continue
 
             # 
