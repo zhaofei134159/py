@@ -93,9 +93,9 @@ class Procuder(object):
 
             db = MysqlHelp()
             result = db.select_fetchall(sql,gallery_data)
-            print(list(result))
-            print(list(result)[0])
-            exit()
+
+            if not len(list(result)[0]):
+                continue
 
             # 
             img_url = self.img_montage(img_soup.find('div', class_='com-left-img-infor-div').find('div', class_='img-box').find('img').get('src'))
