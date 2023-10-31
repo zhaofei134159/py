@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# from mysql.MysqlHelp import MysqlHelp
+from mysql.MysqlHelp import MysqlHelp
 import re
 import requests
 import time
@@ -7,6 +7,7 @@ from lxml import etree
 from selenium import webdriver
 from urllib import error
 from bs4 import BeautifulSoup
+import datetime
 import os
 
 BASE_URL = "https://sc.chinaz.com/tupian/"  #  网站地址
@@ -78,25 +79,36 @@ class Procuder(object):
             href = imgls[index].get('href').replace("/tupian/", '', 1)
 
             # 获取图片名称 地址等信息
-            img_url = BASE_URL + href
-            img_soup = self.get_soup(img_url)
+            img_href_url = BASE_URL + href
+            img_soup = self.get_soup(img_href_url)
 
-            print()
-            img_url = img_soup.find('div', class_='com-left-img-infor-div').find('div', class_='img-box').find('img').get('src')
+            # 
+            img_url = self.img_montage(img_soup.find('div', class_='com-left-img-infor-div').find('div', class_='img-box').find('img').get('src'))
+            img_data = img_url.split(".jpg")
+
+            img_json = []
+            img_json.append(img_data['0'] + '_533x640.jpg');
+            img_json.append(img_data['0'] + '_1066x1280.jpg');
+            img_json.append(img_data['0'] + '_1600x1920.jpg');
+            img_json.append(img_data['0'] + '_2500x3000.jpg');
+
             img_data = {}
             img_data['name'] = img_soup.find('h1').text
             img_data['desc'] = img_soup.find('h1').text
-            img_data['img_main'] = self.img_montage(img_url)
-            img_data['img_json'] = []
+            img_data['img_main'] = img_url
+            img_data['img_json'] = img_json
+            img_data['type_msg'] = 'chinaz'
+            img_data['unique_id'] = href.replace('.htm', '', 1)
+            img_data['href_link'] = img_href_url
             img_data['tag'] = img_soup.find('div', class_='mb0').find('a').text
-            # img_data['desc'] = img_soup.find('a', class_='colbule').get('title')
+            img_data['create_time'] = datetime.datetime.now()
 
             print(img_data)
             exit()
 
 
     def img_montage(self, url):
-        return 'https:' + url.replace('cs','tp',1)
+        return 'https:' + url.replace('sc','tp',1)
 
     def InsertDB(self,data):
         # `name` varchar(255) DEFAULT NULL,
