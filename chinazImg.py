@@ -81,9 +81,13 @@ class Procuder(object):
             img_url = BASE_URL + href
             img_soup = self.get_soup(img_url)
 
-            print(img_soup.find('div', class_='mb0').find('a').text)
+            print()
             img_data = {}
             img_data['name'] = img_soup.find('h1').text
+            img_data['desc'] = img_soup.find('h1').text
+            img_data['img_main'] = img_soup.find('div', class_='left-div').find('div', class_='img-box').find('img').get('src')
+            img_data['desc'] = img_soup.find('h1').text
+            img_data['tag'] = img_soup.find('div', class_='mb0').find('a').text
             # img_data['desc'] = img_soup.find('a', class_='colbule').get('title')
 
             print(img_data)
@@ -98,7 +102,7 @@ class Procuder(object):
         # `type_msg` varchar(255) DEFAULT NULL COMMENT '类别',
         # `unique_id` varchar(50) DEFAULT NULL COMMENT '唯一标识',
         # `href_link` varchar(255) DEFAULT NULL,
-        # `tag_id` varchar(50) DEFAULT NULL COMMENT '标签',
+        # `tag` varchar(50) DEFAULT NULL COMMENT '标签',
         # `create_time` datetime DEFAULT NULL,
         # `update_time` times
 
