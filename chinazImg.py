@@ -93,8 +93,8 @@ class Procuder(object):
 
             db = MysqlHelp()
             result = db.select_fetchall(sql,gallery_data)
-            print(result)
-
+            print(result['0'])
+            exit()
 
             # 
             img_url = self.img_montage(img_soup.find('div', class_='com-left-img-infor-div').find('div', class_='img-box').find('img').get('src'))
@@ -118,7 +118,7 @@ class Procuder(object):
             img_insert_data.append(img_soup.find('div', class_='mb0').find('a').text)
             img_insert_data.append(str(datetime.datetime.now()))
             self.InsertDB(img_insert_data)
-            
+
             exit()
             time.sleep(2)
 
