@@ -77,7 +77,7 @@ class Procuder(object):
         img_link_ls = []
         for index in range(len(imgls)):
             img_json = {}
-            img_json['href'] = imgls[index].get('href')
+            img_json['href'] = imgls[index].get('href').replace("/tupian/", '', 1)
             img_link_ls.append(img_json)
 
         print(img_link_ls)
