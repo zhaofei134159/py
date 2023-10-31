@@ -83,7 +83,7 @@ class Procuder(object):
 
             img_data = {}
             img_data['name'] = img_soup.find('h1').text
-            img_data['desc'] = img_soup.find('a',class_='colbule').text
+            img_data['desc'] = img_soup.find('a', class_='colbule').get('title')
 
             print(img_data)
             exit()
