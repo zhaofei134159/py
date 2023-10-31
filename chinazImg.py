@@ -8,6 +8,7 @@ from selenium import webdriver
 from urllib import error
 from bs4 import BeautifulSoup
 import datetime
+import json
 import os
 
 BASE_URL = "https://sc.chinaz.com/tupian/"  #  网站地址
@@ -96,12 +97,12 @@ class Procuder(object):
             img_data['name'] = img_soup.find('h1').text
             img_data['desc'] = img_soup.find('h1').text
             img_data['img_main'] = img_url
-            img_data['img_json'] = img_json
+            img_data['img_json'] = json.dumps(img_json)
             img_data['type_msg'] = 'chinaz'
             img_data['unique_id'] = href.replace('.htm', '', 1)
             img_data['href_link'] = img_href_url
             img_data['tag'] = img_soup.find('div', class_='mb0').find('a').text
-            img_data['create_time'] = datetime.datetime.now()
+            img_data['create_time'] = str(datetime.datetime.now())
 
             print(img_data)
             exit()
