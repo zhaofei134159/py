@@ -71,17 +71,23 @@ class Procuder(object):
             page_img_soup = self.get_soup(page_url)
             self.get_image_url(page_img_soup)
 
-
+    # 
     def get_image_url(self, soup):
         imgls = soup.find('div', class_='tupian-list').find_all('a')
-        img_link_ls = []
         for index in range(len(imgls)):
-            img_json = {}
-            img_json['href'] = imgls[index].get('href').replace("/tupian/", '', 1)
-            img_link_ls.append(img_json)
+            href = imgls[index].get('href').replace("/tupian/", '', 1)
 
-        print(img_link_ls)
-        exit()
+            # 获取图片名称 地址等信息
+            img_url = BASE_URL + href
+            img_soup = self.get_soup(img_url)
+
+            img_data = {}
+            img_data['name'] = img_soup.find('h1').text
+            img_data['desc'] = img_soup.find_all('div',class_='mb0').find_all('a').text
+
+            print(img_data)
+            exit()
+
 
     def InsertDB(self,data):
         # `name` varchar(255) DEFAULT NULL,
