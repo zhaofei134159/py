@@ -81,7 +81,7 @@ class Procuder(object):
             img_url = BASE_URL + href
             img_soup = self.get_soup(img_url)
 
-            print(img_soup.find('div', class_='mb0'))
+            print(img_soup.find('div', class_='mb0').find('a').text)
             img_data = {}
             img_data['name'] = img_soup.find('h1').text
             # img_data['desc'] = img_soup.find('a', class_='colbule').get('title')
