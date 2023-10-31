@@ -87,10 +87,10 @@ class Procuder(object):
             img_data = img_url.split(".jpg")
 
             img_json = []
-            img_json.append(img_data['0'] + '_533x640.jpg');
-            img_json.append(img_data['0'] + '_1066x1280.jpg');
-            img_json.append(img_data['0'] + '_1600x1920.jpg');
-            img_json.append(img_data['0'] + '_2500x3000.jpg');
+            img_json.append(img_data[0] + '_533x640.jpg');
+            img_json.append(img_data[0] + '_1066x1280.jpg');
+            img_json.append(img_data[0] + '_1600x1920.jpg');
+            img_json.append(img_data[0] + '_2500x3000.jpg');
 
             img_data = {}
             img_data['name'] = img_soup.find('h1').text
