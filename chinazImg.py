@@ -81,18 +81,22 @@ class Procuder(object):
             img_url = BASE_URL + href
             img_soup = self.get_soup(img_url)
 
-            print(img_soup.find('div', class_='com-left-img-infor-div').find('div', class_='img-box').find('img').get('src'))
+            print()
+            img_url = img_soup.find('div', class_='com-left-img-infor-div').find('div', class_='img-box').find('img').get('src')
             img_data = {}
             img_data['name'] = img_soup.find('h1').text
             img_data['desc'] = img_soup.find('h1').text
-            img_data['img_main'] = img_soup.find('div', class_='left-div').find('img')
-            img_data['desc'] = img_soup.find('h1').text
+            img_data['img_main'] = self.img_montage(img_url)
+            img_data['img_json'] = []
             img_data['tag'] = img_soup.find('div', class_='mb0').find('a').text
             # img_data['desc'] = img_soup.find('a', class_='colbule').get('title')
 
             print(img_data)
             exit()
 
+
+    def img_montage(self, url):
+        return 'https:' + url.replace('cs','tp',1)
 
     def InsertDB(self,data):
         # `name` varchar(255) DEFAULT NULL,
@@ -107,7 +111,7 @@ class Procuder(object):
         # `update_time` times
 
         # 连接 mysql，获取连接的对象
-        sql = "INSERT into gallery(`name`,`desc`,`img_main`,`img_json`,`type_msg`,`unique_id`,`href_link`,`tag_id`,`create_time`) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        sql = "INSERT into gallery(`name`,`desc`,`img_main`,`img_json`,`type_msg`,`unique_id`,`href_link`,`tag`,`create_time`) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         db = MysqlHelp()
         db.insert_delete_update(sql,data)
 
