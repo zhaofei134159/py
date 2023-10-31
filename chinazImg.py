@@ -73,23 +73,30 @@ class Procuder(object):
 
 
     def get_image_url(self, soup):
-        imgls = soup.find('div', class_='tupian-list').find_all('img')
+        imgls = soup.find('div', class_='tupian-list').find_all('a')
         img_link_ls = []
         for index in range(len(imgls)):
-            print(index)
-            print(imgls[index].get('alt'))
-            print(imgls[index].get('data-original'))
             img_json = {}
-            img_json['alt'] = imgls[index].get('alt')
-            img_json['data-original'] = imgls[index].get('data-original')
+            img_json['href'] = imgls[index].get('href')
             img_link_ls.append(img_json)
-            
+
         print(img_link_ls)
         exit()
 
     def InsertDB(self,data):
+        # `name` varchar(255) DEFAULT NULL,
+        # `desc` varchar(255) DEFAULT NULL,
+        # `img_main` varchar(255) DEFAULT NULL COMMENT '宽屏图片',
+        # `img_json` text,
+        # `type_msg` varchar(255) DEFAULT NULL COMMENT '类别',
+        # `unique_id` varchar(50) DEFAULT NULL COMMENT '唯一标识',
+        # `href_link` varchar(255) DEFAULT NULL,
+        # `tag_id` varchar(50) DEFAULT NULL COMMENT '标签',
+        # `create_time` datetime DEFAULT NULL,
+        # `update_time` times
+
         # 连接 mysql，获取连接的对象
-        sql = "INSERT into zf_video(`name`,`path`,`episodes`) values(%s,%s,%s)"
+        sql = "INSERT into gallery(`name`,`desc`,`img_main`,`img_json`,`type_msg`,`unique_id`,`href_link`,`tag_id`,`create_time`) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         db = MysqlHelp()
         db.insert_delete_update(sql,data)
 
