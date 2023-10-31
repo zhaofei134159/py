@@ -83,6 +83,19 @@ class Procuder(object):
             img_href_url = BASE_URL + href
             img_soup = self.get_soup(img_href_url)
 
+            type_msg = 'chinaz'
+            unique_id = href.replace('.htm', '', 1)
+
+            gallery_data = []
+            gallery_data.append(type_msg)
+            gallery_data.append(unique_id)
+            sql = "SELECT * FROM gallery WHERE `type_msg`=%s and unique_id=%s order by id"
+
+            db = MysqlHelp()
+            result = db.select_fetchall(sql,gallery_data)
+            print(result)
+
+
             # 
             img_url = self.img_montage(img_soup.find('div', class_='com-left-img-infor-div').find('div', class_='img-box').find('img').get('src'))
             img_data = img_url.split(".jpg")
@@ -93,20 +106,21 @@ class Procuder(object):
             img_json.append(img_data[0] + '_1600x1920.jpg');
             img_json.append(img_data[0] + '_2500x3000.jpg');
 
-            img_data = {}
-            img_data['name'] = img_soup.find('h1').text
-            img_data['desc'] = img_soup.find('h1').text
-            img_data['img_main'] = img_url
-            img_data['img_json'] = json.dumps(img_json)
-            img_data['type_msg'] = 'chinaz'
-            img_data['unique_id'] = href.replace('.htm', '', 1)
-            img_data['href_link'] = img_href_url
-            img_data['tag'] = img_soup.find('div', class_='mb0').find('a').text
-            img_data['create_time'] = str(datetime.datetime.now())
-
-            print(img_data)
+            # 新增
+            img_insert_data = []
+            img_insert_data.append(img_soup.find('h1').text)
+            img_insert_data.append(img_soup.find('h1').text)
+            img_insert_data.append(img_url)
+            img_insert_data.append(json.dumps(img_json))
+            img_insert_data.append('chinaz')
+            img_insert_data.append(unique_id)
+            img_insert_data.append(img_href_url)
+            img_insert_data.append(img_soup.find('div', class_='mb0').find('a').text)
+            img_insert_data.append(str(datetime.datetime.now()))
+            self.InsertDB(img_insert_data)
+            
             exit()
-
+            time.sleep(2)
 
     def img_montage(self, url):
         return 'https:' + url.replace('sc','tp',1)
