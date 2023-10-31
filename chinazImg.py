@@ -95,7 +95,7 @@ class Procuder(object):
             db = MysqlHelp()
             result = db.select_fetchall(sql,gallery_data)
 
-            if len(list(result)[0]) != 0:
+            if not list(result)[0]:
                 continue
 
             # 
