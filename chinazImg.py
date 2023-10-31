@@ -121,7 +121,6 @@ class Procuder(object):
             img_insert_data.append(str(datetime.datetime.now()))
             self.InsertDB(img_insert_data)
 
-            exit()
             time.sleep(2)
 
     def img_montage(self, url):
