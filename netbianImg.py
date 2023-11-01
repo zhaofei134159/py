@@ -68,8 +68,6 @@ class Procuder(object):
 
     # 获取每个分页内图片url和文本
     def get_page_img(self):
-        print(self.page_num_link)
-        exit()
         for link in self.page_num_link:
             page_url = BASE_URL + link
             print(page_url)
@@ -78,16 +76,20 @@ class Procuder(object):
 
     # 
     def get_image_url(self, soup):
-        imgls = soup.find('div', class_='tupian-list').find_all('a')
+        imgls = soup.find('div', class_='slist').find_all('a')
         for index in range(len(imgls)):
-            href = imgls[index].get('href').replace("/tupian/", '', 1)
+
+            href = imgls[index].get('href')
+            if 'index' in href:
+                continue
 
             # 获取图片名称 地址等信息
             img_href_url = BASE_URL + href
             img_soup = self.get_soup(img_href_url)
 
-            type_msg = 'chinaz'
-            unique_id = href.replace('.htm', '', 1)
+            type_msg = 'netbian'
+            href_msg = href.replace('.html', '', 1)
+            unique_id = href_msg.replace('/tupian/', '', 1)
 
 
             # 已存在 则跳过
@@ -102,23 +104,24 @@ class Procuder(object):
                 continue
 
             # 
-            img_url_ori = img_soup.find('div', class_='com-left-img-infor-div').find('div', class_='img-box').find('img').get('src')
-            if 'https:' not in img_url_ori:
-                img_url = 'https:' + img_url_ori
+            img_url_ori = img_soup.find('div', class_='photo-pic').find('img').get('src')
+            img_url = BASE_URL + img_url_ori
 
             img_json = []
 
             # 新增
             img_insert_data = []
-            img_insert_data.append(img_soup.find('h1').text)
-            img_insert_data.append(img_soup.find('h1').text)
+            img_insert_data.append(img_soup.find('h1').text.split(" ")[0])
+            img_insert_data.append(img_soup.find('h1').text.split(" ")[0])
             img_insert_data.append(img_url)
             img_insert_data.append(json.dumps(img_json))
-            img_insert_data.append('chinaz')
+            img_insert_data.append(type_msg)
             img_insert_data.append(unique_id)
             img_insert_data.append(img_href_url)
-            img_insert_data.append(img_soup.find('div', class_='mb0').find('a').text)
+            img_insert_data.append(img_soup.find('div', class_='infor').find('a').text)
             img_insert_data.append(str(datetime.datetime.now()))
+            print(img_insert_data)
+            exit()
             self.InsertDB(img_insert_data)
 
             time.sleep(2)
