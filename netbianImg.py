@@ -33,7 +33,7 @@ class Procuder(object):
         response = requests.get(url, headers = header)
         # 修改字符集（可选）
         new_charset = 'utf-8'  # 替换为你希望使用的字符集
-        # response.encoding = new_charset
+        response.encoding = new_charset
         # 解析网页内容
         html_content = response.text
         soup = BeautifulSoup(html_content, 'html.parser')
@@ -109,7 +109,7 @@ class Procuder(object):
 
             img_json = []
 
-            print(img_soup.find('h1').text.split(" ")[0])
+            print(img_soup.find('h1').content.split(" ")[0])
             print(img_soup.find('h1').decode('urf-8'))
             # 新增
             img_insert_data = []
