@@ -87,9 +87,8 @@ class Procuder(object):
             img_href_url = BASE_URL + href.replace('/','',1)
             print(img_href_url)
             img_soup = self.get_soup(img_href_url)
-            print(img_soup.find('div', class_='infor'))
-            print(img_soup.find('div', class_='infor').find('a'))
-            print(img_soup.find('div', class_='infor').find('a').text)
+            print(img_soup.find('div', class_='infor').find_all('a') == None)
+
 
             type_msg = 'netbian'
             href_msg = href.replace('.html', '', 1)
@@ -112,6 +111,7 @@ class Procuder(object):
             img_url = BASE_URL + img_url_ori
 
             img_json = []
+
 
 
             # 新增
