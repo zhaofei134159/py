@@ -12,7 +12,7 @@ import json
 import os
 
 BASE_URL = "https://sc.chinaz.com/tupian/"  #  网站地址
-BASE_PATH = "dongman.html"  #  网站地址
+BASE_PATH = "index.html"  #  网站地址
 # 模拟浏览器 请求数据 伪装成浏览器向网页提取服务
 header = {
     'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
@@ -70,6 +70,7 @@ class Procuder(object):
     def get_page_img(self):
         for link in self.page_num_link:
             page_url = BASE_URL + link
+            print(page_url)
             page_img_soup = self.get_soup(page_url)
             self.get_image_url(page_img_soup)
 
