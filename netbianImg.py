@@ -87,12 +87,11 @@ class Procuder(object):
             img_href_url = BASE_URL + href.replace('/','',1)
             print(img_href_url)
             img_soup = self.get_soup(img_href_url)
-            print(img_soup.find('div', class_='infor').find_all('a') is None)
+            print(img_soup.find('div', class_='infor').find('a') is None)
 
             type_msg = 'netbian'
             href_msg = href.replace('.html', '', 1)
             unique_id = href_msg.replace('/tupian/', '', 1)
-
 
             # 已存在 则跳过
             gallery_data = []
@@ -110,8 +109,6 @@ class Procuder(object):
             img_url = BASE_URL + img_url_ori
 
             img_json = []
-
-
 
             # 新增
             img_insert_data = []
