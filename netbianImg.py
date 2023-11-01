@@ -69,7 +69,7 @@ class Procuder(object):
     # 获取每个分页内图片url和文本
     def get_page_img(self):
         for link in self.page_num_link:
-            page_url = BASE_URL + link
+            page_url = BASE_URL + link.replace('/','',1)
             print(page_url)
             page_img_soup = self.get_soup(page_url)
             self.get_image_url(page_img_soup)
@@ -110,16 +110,17 @@ class Procuder(object):
             img_json = []
 
             print(img_soup.find('h1').text.split(" ")[0])
+            print(img_soup.find('h1'))
             # 新增
             img_insert_data = []
-            img_insert_data.append(img_soup.find('h1').text.split(" ")[0].encode('gbk'))
-            img_insert_data.append(img_soup.find('h1').text.split(" ")[0].encode('gbk'))
+            img_insert_data.append(img_soup.find('h1').text.split(" ")[0])
+            img_insert_data.append(img_soup.find('h1').text.split(" ")[0])
             img_insert_data.append(img_url)
             img_insert_data.append(json.dumps(img_json))
             img_insert_data.append(type_msg)
             img_insert_data.append(unique_id)
             img_insert_data.append(img_href_url)
-            img_insert_data.append(img_soup.find('div', class_='infor').find('a').text.encode('gbk'))
+            img_insert_data.append(img_soup.find('div', class_='infor').find('a').text)
             img_insert_data.append(str(datetime.datetime.now()))
             print(img_insert_data)
             exit()
