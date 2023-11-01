@@ -99,14 +99,11 @@ class Procuder(object):
                 continue
 
             # 
-            img_url = self.img_montage(img_soup.find('div', class_='com-left-img-infor-div').find('div', class_='img-box').find('img').get('src'))
-            img_data = img_url.split(".jpg")
+            img_url = img_soup.find('div', class_='com-left-img-infor-div').find('div', class_='img-box').find('img').get('src')
+            if 'https:' not in img_url:
+                img_url += 'https:'
 
             img_json = []
-            img_json.append(img_data[0] + '_533x640.jpg');
-            img_json.append(img_data[0] + '_1066x1280.jpg');
-            img_json.append(img_data[0] + '_1600x1920.jpg');
-            img_json.append(img_data[0] + '_2500x3000.jpg');
 
             # 新增
             img_insert_data = []
