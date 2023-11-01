@@ -109,8 +109,7 @@ class Procuder(object):
 
             img_json = []
 
-            print(img_soup.find('h1').content.split(" ")[0])
-            print(img_soup.find('h1').decode('urf-8'))
+            print(img_soup.find('h1').content)
             # 新增
             img_insert_data = []
             img_insert_data.append(img_soup.find('h1').text.split(" ")[0])
