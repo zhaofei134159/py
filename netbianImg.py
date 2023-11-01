@@ -109,7 +109,6 @@ class Procuder(object):
 
             img_json = []
 
-            print(img_soup.find('h1').text)
             # 新增
             img_insert_data = []
             img_insert_data.append(img_soup.find('h1').text.split(" ")[0])
@@ -121,8 +120,6 @@ class Procuder(object):
             img_insert_data.append(img_href_url)
             img_insert_data.append(img_soup.find('div', class_='infor').find('a').text)
             img_insert_data.append(str(datetime.datetime.now()))
-            print(img_insert_data)
-            exit()
             self.InsertDB(img_insert_data)
 
             time.sleep(2)
