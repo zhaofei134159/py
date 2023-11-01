@@ -84,7 +84,7 @@ class Procuder(object):
                 continue
 
             # 获取图片名称 地址等信息
-            img_href_url = BASE_URL + href
+            img_href_url = BASE_URL + href.replace('/','',1)
             img_soup = self.get_soup(img_href_url)
 
             type_msg = 'netbian'
@@ -111,14 +111,14 @@ class Procuder(object):
 
             # 新增
             img_insert_data = []
-            img_insert_data.append(img_soup.find('h1').text.split(" ")[0])
-            img_insert_data.append(img_soup.find('h1').text.split(" ")[0])
+            img_insert_data.append(img_soup.find('h1').text.split(" ")[0].encode('utf-8'))
+            img_insert_data.append(img_soup.find('h1').text.split(" ")[0].encode('utf-8'))
             img_insert_data.append(img_url)
             img_insert_data.append(json.dumps(img_json))
             img_insert_data.append(type_msg)
             img_insert_data.append(unique_id)
             img_insert_data.append(img_href_url)
-            img_insert_data.append(img_soup.find('div', class_='infor').find('a').text)
+            img_insert_data.append(img_soup.find('div', class_='infor').find('a').text.encode('utf-8'))
             img_insert_data.append(str(datetime.datetime.now()))
             print(img_insert_data)
             exit()
