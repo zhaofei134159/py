@@ -100,9 +100,9 @@ class Procuder(object):
                 continue
 
             # 
-            img_url = img_soup.find('div', class_='com-left-img-infor-div').find('div', class_='img-box').find('img').get('src')
+            img_url_ori = img_soup.find('div', class_='com-left-img-infor-div').find('div', class_='img-box').find('img').get('src')
             if 'https:' not in img_url:
-                img_url += 'https:'
+                img_url = 'https:' + img_url_ori
 
             img_json = []
 
