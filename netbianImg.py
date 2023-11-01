@@ -32,7 +32,7 @@ class Procuder(object):
     def get_soup(self, url):
         response = requests.get(url, headers = header)
         # 修改字符集（可选）
-        new_charset = 'utf-8'  # 替换为你希望使用的字符集
+        new_charset = 'gbk'  # 替换为你希望使用的字符集
         response.encoding = new_charset
         # 解析网页内容
         html_content = response.text
@@ -109,7 +109,7 @@ class Procuder(object):
 
             img_json = []
 
-            print(img_soup.find('h1').content)
+            print(img_soup.find('h1').text)
             # 新增
             img_insert_data = []
             img_insert_data.append(img_soup.find('h1').text.split(" ")[0])
