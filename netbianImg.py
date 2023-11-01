@@ -87,7 +87,11 @@ class Procuder(object):
             img_href_url = BASE_URL + href.replace('/','',1)
             print(img_href_url)
             img_soup = self.get_soup(img_href_url)
-            print(img_soup.find('div', class_='infor').find('a') is None)
+
+            # 标签
+            tag = ''
+            if not img_soup.find('div', class_='infor').find('a') is None:
+                tag = img_soup.find('div', class_='infor').find('a').text
 
             type_msg = 'netbian'
             href_msg = href.replace('.html', '', 1)
@@ -119,7 +123,7 @@ class Procuder(object):
             img_insert_data.append(type_msg)
             img_insert_data.append(unique_id)
             img_insert_data.append(img_href_url)
-            img_insert_data.append(img_soup.find('div', class_='infor').find('a').text)
+            img_insert_data.append(tag)
             img_insert_data.append(str(datetime.datetime.now()))
             self.InsertDB(img_insert_data)
 
