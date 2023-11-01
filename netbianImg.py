@@ -33,7 +33,7 @@ class Procuder(object):
         response = requests.get(url, headers = header)
         # 修改字符集（可选）
         new_charset = 'utf-8'  # 替换为你希望使用的字符集
-        response.encoding = new_charset
+        # response.encoding = new_charset
         # 解析网页内容
         html_content = response.text
         soup = BeautifulSoup(html_content, 'html.parser')
